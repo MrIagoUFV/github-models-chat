@@ -12,14 +12,16 @@ export async function POST(req: Request) {
 
     const stream = await openai.chat.completions.create({
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
+        { role: "system", content: "You are a direct and precise assistant. Always provide factual, straightforward answers without speculation or creativity. Stick strictly to what is asked." },
         ...messages
       ],
       model: process.env.NEXT_PUBLIC_GITHUB_MODEL || "gpt-4o",
       stream: true,
-      temperature: 1.0,
-      top_p: 1.0,
-      max_tokens: 1000,
+      temperature: 0,
+      top_p: 1,
+      max_tokens: 4096,
+      frequency_penalty: 0,
+      presence_penalty: 0,
     });
 
     const encoder = new TextEncoder();
